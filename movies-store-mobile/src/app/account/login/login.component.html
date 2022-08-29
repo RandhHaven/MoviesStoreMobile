@@ -1,0 +1,58 @@
+<ion-content>
+  <ion-grid class="ion-no-padding">
+    <ion-row id="rowImg" class="ion-padding-vertical ion-margin-bottom">
+      <ion-col>
+        <img src="../../../assets/logo-login.png" alt="Promotion">
+      </ion-col>
+    </ion-row>
+    <ion-row class="form-login ion-margin-top ion-margin-horizontal" *ngIf="form">
+      <ion-col>
+        <form novalidate [formGroup]="form" autocomplete="off" (ngSubmit)="onSubmit()">
+          <h5 class="text-usuarios ion-text-center">Usuarios <strong><i>Promotions</i></strong></h5>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label position="floating">Usuario (email)</ion-label>
+                <ion-input enterkeyhint="next" formControlName="username"
+                  [class.invalid]="!f.username.valid && f.username.touched" required enterkeyhint="next">
+                </ion-input>
+              </ion-item>
+              <div class="has-error" *ngIf="submitted && f.username?.errors?.required">Campo
+                requerido</div>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label position="floating">Contraseña</ion-label>
+                <ion-input type="password" formControlName="password"
+                  [class.invalid]="!f.password.valid && f.password.touched" required enterkeyhint="done">
+                </ion-input>
+              </ion-item>
+              <div class="has-error" *ngIf="submitted && f.password?.errors?.required">Campo
+                requerido</div>
+            </ion-col>
+          </ion-row>
+          <ion-row class="ion-margin-top">
+            <ion-col class="ion-text-center">
+              <a [href]="linkForgotPassword" onclick="window.open(this.href, '_system')" class=" ion-margin-vertical"
+                id="linkForgotPassword">
+                <em>Olvidé mi contraseña</em></a>
+              <ion-button class="btn-grey" type="submit">
+                Ingresar
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </form>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+<ion-footer>
+  <ion-toolbar>
+    <ion-button strong id="btnGoRegister" expand="full" color="primary" size="large"
+      [routerLink]="['/account/register']">
+      Registro de nuevo usuario
+    </ion-button>
+  </ion-toolbar>
+</ion-footer>

@@ -1,0 +1,43 @@
+ion-content {
+  --background: #dedede !important;
+  #rowImg {
+    background: #ffffff;
+  }
+  ion-item {
+    --background: #dedede !important;
+  }
+}
+
+.text-usuarios {
+  color: var(--ion-color-primary);
+}
+
+ion-footer {
+  ion-toolbar {
+    --background: #dedede !important;
+  }
+  &::before {
+    display: none;
+  }
+  ion-button {
+    margin: 0;
+    font-size: 1rem;
+  }
+}
+
+#btnGoRegister {
+  position: fixed;
+  right: 0;
+  left: 0;
+  bottom: 0;
+}
+
+#linkForgotPassword {
+  display: block;
+  color: #797979;
+}
+
+ion-button.btn-grey {
+  --background: #d6d7d7;
+  --color: black;
+}

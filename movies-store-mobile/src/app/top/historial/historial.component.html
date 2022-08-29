@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Historial de TOP</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-list *ngFor="let historialItem of historialItems">
+    <ion-list-header lines="none">
+      <ion-label>
+        <h1>{{historialItem.monthYear}}</h1>
+      </ion-label>
+    </ion-list-header>
+    <ion-item *ngFor="let entry of historialItem.entries" lines="none">
+      <ion-card>
+        <ion-card-header class="ion-no-padding ion-padding-horizontal">
+          <ion-card-subtitle color="light">{{entry.Fecha}}</ion-card-subtitle>
+        </ion-card-header>
+        <ion-card-content class="ion-no-padding ion-padding-horizontal">
+          <ion-label color="light"><strong>Nro. de tarjeta:</strong> {{entry.NumeroTarjeta}}
+          </ion-label>
+          <ion-label color="light"><strong>Yacimiento/Sitio:</strong> {{entry.Yacimiento}}</ion-label>
+          <ion-label color="light"><strong>Estado:</strong> {{entry.Estado}}</ion-label>
+        </ion-card-content>
+      </ion-card>
+    </ion-item>
+  </ion-list>
+</ion-content>

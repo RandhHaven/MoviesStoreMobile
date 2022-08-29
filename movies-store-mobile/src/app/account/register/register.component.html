@@ -1,0 +1,126 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Registro de nuevo usuario</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding-horizontal ion-padding-top">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <ion-item>
+      <ion-label position="floating">Nombre</ion-label>
+      <ion-input formControlName="firstName"></ion-input>
+      <div *ngIf="submitted && f.firstName.errors" class="has-error">
+        <div *ngIf="f.firstName.errors.required">{{campoRequerido}}</div>
+      </div>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Apellido</ion-label>
+      <ion-input formControlName="lastName"></ion-input>
+      <div *ngIf="submitted && f.lastName.errors" class="has-error">
+        <div *ngIf="f.lastName.errors.required">{{campoRequerido}}</div>
+      </div>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Usuario (email)</ion-label>
+      <ion-input formControlName="username" type="email" inputmode="email"></ion-input>
+      <div *ngIf="submitted && f.username.errors" class="has-error">
+        <div *ngIf="f.username.errors.required">{{campoRequerido}}</div>
+        <div *ngIf="f.username.errors.email">El formato del email no es correcto</div>
+      </div>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">N° de Documento</ion-label>
+      <ion-input type="number" formControlName="documento"></ion-input>
+      <div *ngIf="submitted && f.documento.errors" class="has-error">
+        <div *ngIf="f.documento.errors.required">{{campoRequerido}}</div>
+        <div *ngIf="f.documento.errors.min">El documento debe estar en el rango 10000-999999999</div>
+        <div *ngIf="f.documento.errors.max">El documento debe estar en el rango 10000-999999999</div>
+      </div>
+    </ion-item>
+
+    <!-- <ion-item>
+      <ion-label position="floating">Cargo</ion-label>
+      <ion-select formControlName="cargo" placeholder="Seleccione Cargo" cancelText="Cancelar" okText="Ok">
+        <ion-select-option *ngFor="let cargo of cargos" [value]="cargo.Id">{{cargo.Descripcion}}</ion-select-option>
+      </ion-select>
+    </ion-item> -->
+
+    <ion-item>
+      <ion-label position="floating">Unidad de Negocio</ion-label>
+      <ion-select formControlName="unidadNegocio" interface="popover" placeholder="Seleccione Unidad de Trabajo"
+        cancelText="Cancelar" okText="Ok" (ionChange)="unidadChange($event)">
+        <ion-select-option *ngFor="let unidadNegocio of unidadesNegocio" [value]="unidadNegocio.Id">
+          {{unidadNegocio.Descripcion}}
+        </ion-select-option>
+      </ion-select>
+      <div *ngIf="submitted && f.unidadNegocio.errors" class="has-error">
+        <div *ngIf="f.unidadNegocio.errors.required">{{campoRequerido}}</div>
+      </div>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Área</ion-label>
+      <ion-select formControlName="areaTrabajo" interface="popover" placeholder="Seleccione Área" cancelText="Cancelar"
+        okText="Ok">
+        <ion-select-option *ngFor="let areaTrabajo of areasTrabajoByUnidad" [value]="areaTrabajo.Id">
+          {{areaTrabajo.Descripcion}}
+        </ion-select-option>
+      </ion-select>
+      <div *ngIf="submitted && f.areaTrabajo.errors" class="has-error">
+        <div *ngIf="f.areaTrabajo.errors.required">{{campoRequerido}}</div>
+      </div>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Empresa <sup>(1)</sup>
+      </ion-label>
+      <ionic-selectable item-content formControlName="empresa" [items]="empresas" itemValueField="Id"
+        itemTextField="RazonSocial" [canSearch]="true" (onSearch)="searchEmpresa($event)" closeButtonText="Cerrar"
+        [searchDebounce]="500" [searchFailText]="'No se han encontrado empresas'"
+        searchPlaceholder="Ingrese una empresa" placeholder="Seleccione una Empresa">
+        <ng-template ionicSelectableSearchFailTemplate>
+          <div class="ion-padding ion-text-center">
+            No se han encontrado empresas según los criterios de búsqueda
+          </div>
+        </ng-template>
+      </ionic-selectable>
+      <div *ngIf="submitted && f.empresa.errors" class="has-error">
+        <div *ngIf="f.empresa.errors.required">{{campoRequerido}}</div>
+      </div>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Contraseña</ion-label>
+      <ion-input type="password" formControlName="password"></ion-input>
+      <div *ngIf="submitted && f.password.errors" class="has-error">
+        <div *ngIf="f.password.errors.required">{{campoRequerido}}</div>
+        <div *ngIf="f.password.errors.minlength">La contraseña debe contener al menos 8 caracteres.</div>
+        <div *ngIf="f.password.errors.pattern">La contraseña debe contener al menos 2 caracteres númericos.</div>
+        <div *ngIf="f.password.errors.differentUsernamePassword">La contraseña no puede ser su usuario ni viceversa
+        </div>
+      </div>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Repetir Contraseña</ion-label>
+      <ion-input type="password" formControlName="password2"></ion-input>
+      <div *ngIf="submitted && f.password2.errors" class="has-error">
+        <div *ngIf="f.password2.errors.required">{{campoRequerido}}</div>
+        <div *ngIf="f.password2.errors.mustMatch">Las contraseñas deben ser iguales</div>
+      </div>
+    </ion-item>
+
+    <ion-button class="ion-margin-top" [disabled]="loading" type="submit" expand="full" color="primary">
+      Registrarse
+    </ion-button>
+    <div style="font-size: 0.9rem;" class="ion-margin-top"><sup>(1)</sup><i> Si su Empresa no está en la lista, busque y
+        seleccione "Otras
+        Empresas"</i>
+    </div>
+  </form>
+</ion-content>

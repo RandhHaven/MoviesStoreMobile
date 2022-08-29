@@ -1,0 +1,66 @@
+ion-content {
+  ion-item {
+    --background: #fafafa;
+  }
+  ion-label {
+    font-size: 1.3rem;
+    white-space: normal;
+    --color: #737373;
+  }
+}
+
+ion-select {
+  width: 100%;
+}
+
+ion-select::part(text) {
+  white-space: normal;
+}
+
+ion-card {
+  border-radius: 0;
+  &.card-reportar {
+    --background: #30aed4;
+    .btn-card {
+      --background: #108eb4 !important;
+    }
+  }
+  &.card-reportada {
+    --background: #317491;
+    .btn-card {
+      --background: #014461 !important;
+    }
+  }
+  margin-right: 0;
+  margin-left: 0;
+  ion-button {
+    span {
+      text-align: left;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      ion-icon {
+        margin-bottom: 1px;
+      }
+    }
+  }
+}
+
+.help-text{
+  font-size:0.8rem;
+  color:grey;
+  width:100%;
+}
+
+.pic-taken {
+  max-height: 100px;
+  width: auto;
+}
+
+#btnReportar {
+  --background: #014461 !important;
+}
+
+#btnCancelar {
+  --background: #108eb4 !important;
+}

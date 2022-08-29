@@ -1,0 +1,98 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Registro</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding-horizontal">
+  <ion-grid>
+    <ion-row class="user-info">
+      <ion-col>
+        <ion-item>
+          <ion-label>
+            <h2>Nombre</h2>
+            <p>{{tempUser.nombre}}</p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <h2>Apellido</h2>
+            <p>{{tempUser.apellido}}</p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <h2>Usuario</h2>
+            <p>{{tempUser.username}}</p>
+          </ion-label>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating">Unidad de Negocio</ion-label>
+            <ion-select formControlName="unidadNegocio" placeholder="Seleccione Unidad de Trabajo" cancelText="Cancelar"
+              okText="Ok" (ionChange)="unidadChange($event)">
+              <ion-select-option *ngFor="let unidadNegocio of unidadesNegocio" [value]="unidadNegocio.Id">
+                {{unidadNegocio.Descripcion}}
+              </ion-select-option>
+            </ion-select>
+            <div *ngIf="submitted && f.unidadNegocio.errors" class="has-error">
+              <div *ngIf="f.unidadNegocio.errors.required">{{campoRequerido}}</div>
+            </div>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="floating">Área</ion-label>
+            <ion-select formControlName="areaTrabajo" placeholder="Seleccione Área" cancelText="Cancelar" okText="Ok"
+              (ionChange)="areaTrabajoChange($event)">
+              <ion-select-option *ngFor="let areaTrabajo of areasTrabajoByUnidad" [value]="areaTrabajo.Id">
+                {{areaTrabajo.Descripcion}}
+              </ion-select-option>
+            </ion-select>
+            <div *ngIf="submitted && f.areaTrabajo.errors" class="has-error">
+              <div *ngIf="f.areaTrabajo.errors.required">{{campoRequerido}}</div>
+            </div>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="floating">Yacimiento</ion-label>
+            <ion-select formControlName="yacimiento" placeholder="Seleccione Yacimiento" cancelText="Cancelar"
+              okText="Ok">
+              <ion-select-option *ngFor="let yacimiento of yacimientosByAreaTrabajo" [value]="yacimiento.Id">
+                {{yacimiento.Descripcion}}
+              </ion-select-option>
+            </ion-select>
+            <div *ngIf="submitted && f.yacimiento.errors" class="has-error">
+              <div *ngIf="f.yacimiento.errors.required">{{campoRequerido}}</div>
+            </div>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="floating">Gerencia</ion-label>
+            <ion-select formControlName="gerencia" placeholder="Seleccione Gerencia" cancelText="Cancelar" okText="Ok">
+              <ion-select-option *ngFor="let gerencia of gerencias" [value]="gerencia.Id">
+                {{gerencia.Descripcion}}
+              </ion-select-option>
+            </ion-select>
+            <div *ngIf="submitted && f.gerencia.errors" class="has-error">
+              <div *ngIf="f.gerencia.errors.required">{{campoRequerido}}</div>
+            </div>
+          </ion-item>
+
+        </ion-col>
+      </ion-row>
+      <ion-row class="ion-margin-top">
+        <ion-col class="ion-text-center">
+          <ion-button class="ion-margin-top" [disabled]="loading" type="submit" expand="full" color="primary">
+            Registrarse
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </form>
+  </ion-grid>
+</ion-content>

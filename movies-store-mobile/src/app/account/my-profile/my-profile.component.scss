@@ -1,0 +1,35 @@
+ion-content {
+  --background: #fafafa;
+  ion-item {
+    --background: #fafafa;
+  }
+  ion-label {
+    --color: #888888;
+    p {
+      color: black;
+    }
+  }
+}
+.img-user {
+  position: relative;
+
+  ion-avatar {
+    margin-left: auto;
+    margin-right: auto;
+    min-height: 150px;
+    min-width: 150px;
+  }
+
+  ion-fab-button {
+    position: absolute;
+    top: 60%;
+    left: 55%;
+    z-index: 10;
+  }
+}
+
+.user-info {
+  p {
+    white-space: normal;
+  }
+}

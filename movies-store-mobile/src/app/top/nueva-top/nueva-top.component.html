@@ -1,0 +1,204 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Nueva TOP</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-grid>
+    <form #inspeccionForm="ngForm" novalidate (ngSubmit)="onSubmit(inspeccionForm)">
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="stacked">Unidad de Negocio</ion-label>
+            <ion-select [(ngModel)]="inspeccion.unidadNegocioId" interface="popover" placeholder="Seleccione"
+              cancelText="Cancelar" okText="Ok" (ionChange)="unidadChange($event)" name="unidadTrabajo"
+              #unidadTrabajo="ngModel" [ngClass]="{ 'invalid': inspeccionForm.submitted && unidadTrabajo.invalid }"
+              required>
+              <ion-select-option *ngFor="let unidadNegocio of unidadesNegocio" [value]="unidadNegocio.Id">
+                {{unidadNegocio.Descripcion}}
+              </ion-select-option>
+            </ion-select>
+            <div class="has-error" *ngIf="inspeccionForm.submitted && unidadTrabajo.invalid">
+              <p *ngIf="unidadTrabajo.errors.required">{{campoRequerido}}</p>
+            </div>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="stacked">Área</ion-label>
+            <ion-select [(ngModel)]="inspeccion.areaDeTrabajoId" interface="popover" placeholder="Seleccione"
+              cancelText="Cancelar" okText="Ok" (ionChange)="areaTrabajoChange($event)" name="areaTrabajo"
+              #areaTrabajo="ngModel" [ngClass]="{ 'invalid': inspeccionForm.submitted && areaTrabajo.invalid }"
+              [disabled]="areasTrabajoByUnidad.length === 0" required>
+              <ion-select-option *ngFor="let areaTrabajo of areasTrabajoByUnidad" [value]="areaTrabajo.Id">
+                {{areaTrabajo.Descripcion}}
+              </ion-select-option>
+            </ion-select>
+            <div class="has-error" *ngIf="inspeccionForm.submitted && areaTrabajo.invalid">
+              <p *ngIf="areaTrabajo.errors.required">{{campoRequerido}}</p>
+            </div>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="stacked">Yacimiento/Sitio</ion-label>
+            <ion-select [(ngModel)]="inspeccion.YacimientoID" interface="popover" placeholder="Seleccione"
+              cancelText="Cancelar" okText="Ok" (ionChange)="yacimientoChange($event)" name="yacimiento"
+              #yacimiento="ngModel" [ngClass]="{ 'invalid': inspeccionForm.submitted && yacimiento.invalid }"
+              [disabled]="yacimientosByAreaTrabajo.length === 0" required>
+              <ion-select-option *ngFor="let yacimiento of yacimientosByAreaTrabajo" [value]="yacimiento.Id">
+                {{yacimiento.Descripcion}}
+              </ion-select-option>
+            </ion-select>
+            <div class="has-error" *ngIf="inspeccionForm.submitted && yacimiento.invalid">
+              <p *ngIf="yacimiento.errors.required">{{campoRequerido}}</p>
+            </div>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="stacked">Lugar Específico</ion-label>
+            <ion-select [(ngModel)]="inspeccion.lugarEspecificoId" interface="popover" placeholder="Seleccione"
+              cancelText="Cancelar" okText="Ok" name="lugarEspecifico" #lugarEspecifico="ngModel"
+              [ngClass]="{ 'invalid': inspeccionForm.submitted && lugarEspecifico.invalid }"
+              [disabled]="lugaresEspecificosByYacimiento.length === 0" required>
+              <ion-select-option *ngFor="let lugarEspecifico of lugaresEspecificosByYacimiento"
+                [value]="lugarEspecifico.Id">
+                {{lugarEspecifico.Descripcion}}
+              </ion-select-option>
+            </ion-select>
+            <div class="has-error" *ngIf="inspeccionForm.submitted && lugarEspecifico.invalid">
+              <p *ngIf="lugarEspecifico.errors.required">{{campoRequerido}}</p>
+            </div>
+          </ion-item>
+
+          <!-- Agregado Jait -->
+          <ion-item>
+            <ion-label position="stacked">Lugar</ion-label>
+            <ion-input type="text" [(ngModel)]="inspeccion.lugar" name="lugar" #lugar="ngModel"
+              [ngClass]="{ 'invalid': inspeccionForm.submitted && lugar.invalid }" required></ion-input>
+            <div class="has-error" *ngIf="inspeccionForm.submitted && lugar.invalid">
+              <p *ngIf="lugar.errors.required">{{campoRequerido}}</p>
+            </div>
+          </ion-item>
+          <div class="ion-text-center help-text">Complete con la descripción del lugar observado</div>
+
+          <ion-item>
+            <ion-label position="stacked">Gerencia Responsable Observada</ion-label>
+            <ion-select [(ngModel)]="inspeccion.GerenciaID" interface="popover" placeholder="Seleccione"
+              cancelText="Cancelar" okText="Ok" name="gerencia" #gerencia="ngModel"
+              [ngClass]="{ 'invalid': inspeccionForm.submitted && gerencia.invalid }"
+              [disabled]="gerencias.length === 0" required>
+              <ion-select-option *ngFor="let gerencia of gerencias" [value]="gerencia.Id">
+                {{gerencia.Descripcion}}
+              </ion-select-option>
+            </ion-select>
+            <div class="has-error" *ngIf="inspeccionForm.submitted && gerencia.invalid">
+              <p *ngIf="gerencia.errors.required">{{campoRequerido}}</p>
+            </div>
+          </ion-item>
+          <div class="ion-text-center help-text">Gerencia a la cual se le hace la Observación Preventiva</div>
+
+          <ion-row *ngIf="!!checklist">
+            <ion-col>
+              <ion-card [class]="checklistGrupo.reportada ? 'card-reportada':'card-reportar'" button
+                (click)="checklistCardClick(checklistGrupo.Numero)"
+                *ngFor="let checklistGrupo of checklist.CheckListGrupos">
+                <ion-card-header>
+                  <ion-card-subtitle color="light">{{checklistGrupo.Numero}}/{{checklist.CheckListGrupos.length}}
+                  </ion-card-subtitle>
+                  <ion-card-subtitle color="light" class="ion-margin-bottom">{{checklistGrupo.Nombre}}
+                  </ion-card-subtitle>
+                </ion-card-header>
+                <ion-card-content class="ion-no-padding">
+                  <ion-button expand="block" class="btn-card ion-no-margin ion-text-left" size="small">
+                    <span>
+                      {{checklistGrupo.reportada ? 'Reportada':'Reportar' }}
+                      <ion-icon size="small"
+                        [name]="checklistGrupo.reportada ? 'checkmark-outline':'chevron-forward-outline'">
+                      </ion-icon>
+                    </span>
+                  </ion-button>
+                </ion-card-content>
+              </ion-card>
+            </ion-col>
+          </ion-row>
+          <!-- <ng-container >
+          </ng-container> -->
+
+          <ion-item>
+            <ion-label position="stacked">Descripción / Detalle de la observacion</ion-label>
+            <ion-textarea [(ngModel)]="inspeccion.comentarios" name="comentarios" #comentarios="ngModel"
+              [ngClass]="{ 'invalid': inspeccionForm.submitted && comentarios.invalid }" required></ion-textarea>
+            <div class="has-error" *ngIf="inspeccionForm.submitted && comentarios.invalid">
+              <p *ngIf="comentarios.errors.required">{{campoRequerido}}</p>
+            </div>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="stacked">Descripción / Detalle de acciones inmediatas</ion-label>
+            <ion-textarea [(ngModel)]="inspeccion.COM_AccionesCorrectivasPrevenir" name="accionesInmediatas"
+              #accionesInmediatas="ngModel"
+              [ngClass]="{ 'invalid': inspeccionForm.submitted && accionesInmediatas.invalid }" required></ion-textarea>
+            <div class="has-error" *ngIf="inspeccionForm.submitted && accionesInmediatas.invalid">
+              <p *ngIf="accionesInmediatas.errors.required">{{campoRequerido}}</p>
+            </div>
+          </ion-item>
+
+          <ion-item>
+            <ion-label style="font-size: 1rem;" class="ion-text-wrap">¿Se aplicó la Política de Suspensión de Tareas?
+            </ion-label>
+            <ion-radio-group class="ion-margin-top" [(ngModel)]="inspeccion.politicaSuspensionTareas"
+              name="aplicoPoliticas" #aplicoPoliticas="ngModel" required>
+              <ion-row class="row-politicias">
+                <ion-col class="ion-no-padding">
+                  <ion-item lines="none" class="ion-no-padding ion-no-margin">
+                    <ion-label>Sí</ion-label>
+                    <ion-radio slot="start" [value]="true" class="ion-no-margin ion-margin-end"></ion-radio>
+                  </ion-item>
+                </ion-col>
+                <ion-col class="ion-no-padding">
+                  <ion-item lines="none" class="ion-no-padding ion-no-margin">
+                    <ion-label>No</ion-label>
+                    <ion-radio slot="start" [value]="false" class="ion-no-margin ion-margin-end"></ion-radio>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+            </ion-radio-group>
+          </ion-item>
+          <div class="has-error" style="margin-left:19px;" *ngIf="inspeccionForm.submitted && aplicoPoliticas.invalid">
+            <p *ngIf="aplicoPoliticas.errors.required">{{campoRequerido}}</p>
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row class="ion-margin-top">
+        <ion-col class="ion-text-center" size="12">
+          <p>{{geopositionString}}</p>
+        </ion-col>
+        <ion-col size="12">
+          <ion-row *ngFor="let foto of fotos; index as i">
+            <ion-col size="8">
+              <img class="pic-taken" [src]="foto.base64" [alt]="foto.filename" />
+            </ion-col>
+            <ion-col size="4">
+              <ion-button color="danger" (click)="eliminarFoto(foto,i)">
+                Eliminar
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-col>
+        <ion-col size="12" [hidden]="fotos.length===3" (click)="takePicture()">
+          <ion-fab-button class="ion-float-right">
+            <ion-icon name="camera" size="large"></ion-icon>
+          </ion-fab-button>
+        </ion-col>
+        <ion-col class="ion-text-center" size="6" (click)="cancelarTOP()">
+          <ion-button id="btnCancelar">Cancelar</ion-button>
+        </ion-col>
+        <ion-col class="ion-text-center" size="6">
+          <ion-button type="submit" id="btnReportar">Reportar</ion-button>
+        </ion-col>
+      </ion-row>
+    </form>
+  </ion-grid>
+</ion-content>

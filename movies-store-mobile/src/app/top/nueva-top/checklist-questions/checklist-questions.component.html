@@ -1,0 +1,40 @@
+<ion-header translucent>
+  <ion-toolbar color="primary">
+    <ion-title class="ion-text-center">{{titulo}}</ion-title>
+    <!-- <ion-buttons slot="end">
+      <ion-button (click)="dismissModal()">Cerrar</ion-button>
+    </ion-buttons> -->
+  </ion-toolbar>
+</ion-header>
+<ion-content fullscreen>
+  <p id="title" class="ion-text-center ion-no-margin ion-margin-top">Tilde el ítem que corresponda</p>
+  <ion-item-divider></ion-item-divider>
+  <ion-list *ngIf="!!grupoActivo" lines="none">
+    <ion-item *ngFor="let item of grupoActivo.CheckListItems" class="item-reportar"
+      [class]="item.Icono ? 'con-imagen':''">
+      <img [src]="item.imagenBase64" alt="imagen" *ngIf="item.imagenBase64;else sinIconos" class="item-icono" />
+      <ng-template #sinIconos>
+        <ion-label class="ion-no-margin">{{item.Texto}}</ion-label>
+      </ng-template>
+      <ion-checkbox class="ion-no-margin ion-margin-horizontal" slot="start" [(ngModel)]="item.respuesta">
+      </ion-checkbox>
+    </ion-item>
+  </ion-list>
+  <ion-grid>
+    <ion-row>
+      <ion-col style="display: flex;justify-content: space-between;">
+        <ion-button expand="block" (click)="onAnterior()" color="dark">
+          <ion-icon slot="start" name="chevron-back"></ion-icon>
+          Anterior
+        </ion-button>
+        <ion-button (click)="dismissModal()" color="dark">
+          <ion-icon slot="icon-only" name="grid"></ion-icon>
+        </ion-button>
+        <ion-button expand="block" (click)="onSiguiente()" color="dark">
+          Siguiente
+          <ion-icon slot="end" name="chevron-forward"></ion-icon>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

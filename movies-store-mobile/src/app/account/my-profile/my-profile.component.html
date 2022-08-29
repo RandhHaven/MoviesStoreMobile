@@ -1,0 +1,109 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Mi Perfil</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding-horizontal">
+  <ion-grid>
+    <ion-row>
+      <ion-col class="img-user">
+        <ion-avatar>
+          <img [src]="usrImg" alt="profile picture" />
+        </ion-avatar>
+        <ion-fab-button color="dark" (click)="takeProfilePicture()">
+          <ion-icon name="camera" size="large"></ion-icon>
+        </ion-fab-button>
+      </ion-col>
+    </ion-row>
+    <ion-row class="user-info">
+      <ion-col>
+        <ion-item>
+          <ion-label>
+            <h2>Nombre</h2>
+            <p>{{user.firstName}}</p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <h2>Apellido</h2>
+            <p>{{user.lastName}}</p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <h2>Documento</h2>
+            <p>{{user.dni}}</p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <h2>Usuario</h2>
+            <p>{{user.username}}</p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <h2>Unidad de Negocio</h2>
+            <p>{{userUnidades}}</p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <h2>Área</h2>
+            <p>{{userAreas}}</p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <h2>Empresa</h2>
+            <p>{{user.empresa.RazonSocial}}</p>
+          </ion-label>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <!-- <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating">Contraseña</ion-label>
+            <ion-input type="password" formControlName="oldPassword"></ion-input>
+            <div *ngIf="submitted && f.oldPassword.errors" class="has-error">
+              <div *ngIf="f.oldPassword.errors.required">Campo requerido</div>
+            </div>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Contraseña Nueva</ion-label>
+            <ion-input type="password" formControlName="password"></ion-input>
+            <div *ngIf="submitted && f.password.errors" class="has-error">
+              <div *ngIf="f.password.errors.required">Campo requerido</div>
+              <div *ngIf="f.password.errors.minlength">La contraseña debe contener al menos 8 caracteres.</div>
+              <div *ngIf="f.password.errors.pattern">La contraseña debe contener al menos 2 caracteres númericos.</div>
+              <div *ngIf="f.password.errors.differentUsernamePassword">La contraseña no puede ser su usuario ni
+                viceversa
+              </div>
+            </div>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="floating">Repetir Contraseña Nueva</ion-label>
+            <ion-input type="password" formControlName="password2"></ion-input>
+            <div *ngIf="submitted && f.password2.errors" class="has-error">
+              <div *ngIf="f.password2.errors.required">Campo requerido</div>
+
+            </div>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row class="ion-margin-top">
+        <ion-col class="ion-text-center">
+          <ion-button color="primary" type="submit">
+            Guardar cambios
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </form> -->
+  </ion-grid>
+</ion-content>

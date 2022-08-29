@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Pluspetrol TOP</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col class="ion-text-center">
+        <h1>{{nombre}} {{apellido}}</h1>
+        <ion-item-divider class="item-divider-oscuro" color="dark"></ion-item-divider>
+        <img src="../../assets/TOP.png" alt="TOP" class="ion-margin-top" />
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="topsPendientes > 0 || imagenesPendientes > 0">
+      <ion-col size="12" class="ion-text-center">
+        <p *ngIf="topsPendientes > 0"><small>Tiene {{topsPendientes}} TOP realizadas pendientes de
+            sincronización</small></p>
+        <p *ngIf="imagenesPendientes > 0"><small>Tiene {{imagenesPendientes}} imágenes pendientes de
+            sincronización</small></p>
+        <ion-button color="dark" size="small" (click)="forzarSincronizacion()">Forzar sincronizacion</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button [routerLink]="['/top/nueva']">
+      <ion-icon name="add-outline" size="large"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

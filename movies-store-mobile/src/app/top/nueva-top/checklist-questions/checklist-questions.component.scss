@@ -1,0 +1,39 @@
+ion-content {
+  --background: #fafafa;
+  ion-item {
+    --background: #fafafa;
+  }
+  ion-item-divider {
+    --background: #fafafa;
+    min-height: 10px;
+  }
+  ion-list {
+    background: #fafafa !important;
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+  ion-checkbox {
+    --background: #fafafa;
+  }
+}
+#title {
+  color: #737373;
+}
+.item-reportar {
+  max-height: 45px !important;
+  &.con-imagen {
+    width: 50%;
+    display: inline-block;
+    max-height: 100% !important;
+    .item-icono {
+      max-height: 80px;
+      width: auto;
+    }
+  }
+  ion-checkbox {
+    --size: 15px;
+  }
+  ion-label {
+    white-space: normal;
+  }
+}

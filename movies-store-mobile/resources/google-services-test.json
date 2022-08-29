@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1079455011347",
+    "firebase_url": "https://pluspetroltest.firebaseio.com",
+    "project_id": "pluspetroltest",
+    "storage_bucket": "pluspetroltest.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1079455011347:android:93aa804427072753e265e6",
+        "android_client_info": {
+          "package_name": "com.cetap.pluspetrol.top.test"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1079455011347-mcejgoh5699b2niec4f79e7otv8s7db4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDxkxZAP9YEFuDrKva0-3JamG1R8sRkfGo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1079455011347-mcejgoh5699b2niec4f79e7otv8s7db4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
